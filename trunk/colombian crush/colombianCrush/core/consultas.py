@@ -92,8 +92,10 @@ class Consultor(object):
             return 0
         
 
+#Seccion de pruebas
 def _test():
-    consulta =  "buscarPosibilidad(X, arbol(1, arbol(1, arbol(1)), arbol(1, arbol(2)), arbol(3, arbol(4)), arbol(1, arbol(2))))"
+    consulta = "arbol(1, arbol(1, arbol(1)), arbol(1, arbol(2)), arbol(3, arbol(4)), arbol(1, arbol(2)))"
     obj = Consultor(consulta)
-    print obj.buscarSugerencia()
-    
+    print obj.buscarPosibilidad()
+
+_test()
