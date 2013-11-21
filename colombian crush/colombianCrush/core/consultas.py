@@ -1,6 +1,33 @@
 from pyswip import Prolog
 
-#CONSTANTES DE IDENTIFICACION DE EVENTOS DE DESTRUCCION
+#CONSTANTES DE IDENTIFICACION DE LAS FIGURAS
+ESTRELLA = 500
+
+#FIGURAS BASICAS RELLENAS
+CUADRO_NEGRO = 501
+TRIANGULO_NEGRO = 502
+CIRCULO_NEGRO = 503
+ROMBO_NEGRO = 504
+PENTAGONO_NEGRO = 505
+HEXAGONO_NEGRO = 506
+
+#FIGURAS A RAYAS
+CUADRO_RAYAS = 511
+TRIANGULO_RAYAS = 512
+CIRCULO_RAYAS = 513
+ROMBO_RAYAS = 514
+PENTAGONO_RAYAS = 515
+HEXAGONO_RAYAS = 516
+
+#FIGURAS CON FIGURA INTERNA
+CUADRO_SUBC = 521
+TRIANGULO_SUBT = 522
+CIRCULO_SUBCIR = 523
+ROMBO_SUBR = 524
+PENTAGONO_SUBP = 525
+HEXAGONO_SUBH = 526
+
+#CONSTANTES DE IDENTIFICACION DE EVENTOS DE DESTRUCCION DE FIGURAS
 LINEA_5H = 1001
 LINEA_5V = 1002
 L_ARRIBA_IZQ = 1003
@@ -22,7 +49,7 @@ LINEA_DER_3 = 1018
 LINEA_3V = 1019
 LINEA_3H = 1020
 
-#CONSTANTES DE IDENTIFICACION DE SUGERENCIAS
+#CONSTANTES DE IDENTIFICACION DE SUGERENCIAS DE MOVIMIENTOS
 SUG_ARRIBA_1 = 2001
 SUG_ARRIBA_2 = 2002
 SUG_ARRIBA_3 = 2003
@@ -48,13 +75,21 @@ class Consultor(object):
         self.consultor = Prolog()
         self.consultor.consult("colombianCrush.pl")
         self.consulta = consulta
-        self.resultado = 0
+        self.resultado = []
     
     def buscarSugerencia(self):
-        return self.consultor.query("buscarSugerencia(X, " + self.consulta + ")")[0]
+        return self._validarConsulta(self.consultor.query("buscarSugerencia(X, " + self.consulta + ")"))
     
     def buscarPosibilidad(self):
-        return self.consultor.query("buscarPosibilidad(X, " + self.consulta + ")")[0]
+        return self._validarConsulta(self.consultor.query("buscarPosibilidad(X, " + self.consulta + ")"))
+    
+    def _validarConsulta(self, consulta):
+        for valor in consulta:
+            self.resultado.append(valor["X"])
+        if len(self.resultado)>0:
+            return min(self.resultado)
+        else:
+            return 0
         
 
 def _test():
