@@ -47,9 +47,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'prueba.urls'
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'web').replace('\\','/'),
+)
 
-WSGI_APPLICATION = 'prueba.wsgi.application'
+ROOT_URLCONF = 'colombianCrush.urls'
+
+WSGI_APPLICATION = 'colombianCrush.wsgi.application'
 
 
 # Database
@@ -67,7 +71,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
