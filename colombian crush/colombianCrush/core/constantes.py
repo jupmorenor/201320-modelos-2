@@ -142,5 +142,5 @@ def _test2():
     #obj = Generador.cargarImagen(consulta)
     print consulta
 
-_test1()
-_test2()
+#_test1()
+#_test2()
