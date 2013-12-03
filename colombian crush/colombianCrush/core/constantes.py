@@ -1,33 +1,51 @@
+import Image
 from pyswip import Prolog
+from random import randint
+
+
+#CONSTANTES DE IDENTIFICACION DE LOS ESTADOS DEL JUEGO
+
+PASIVO = 0
+#Estado en el que el jugador puede hacer su movimiento
+
+ACTIVO = 1
+#Estado en el que se consulta la base de conocimiento para obtener 
+#las posibilidades de eliminacion de elementos
+
+DESTRUCCION = 2
+#Estado en el que se eliminan las fichas posibles
+
+INACTIVO = 3
+#Estado en el que se genera una sugerencia para el jugador
 
 #CONSTANTES DE IDENTIFICACION DE LAS FIGURAS
 ESTRELLA = 500
+VACIO = 600
 
-#FIGURAS BASICAS RELLENAS
 CUADRO_NEGRO = 501
 TRIANGULO_NEGRO = 502
 CIRCULO_NEGRO = 503
 ROMBO_NEGRO = 504
 PENTAGONO_NEGRO = 505
 HEXAGONO_NEGRO = 506
+#FIGURAS BASICAS RELLENAS
 
-#FIGURAS A RAYAS
 CUADRO_RAYAS = 511
 TRIANGULO_RAYAS = 512
 CIRCULO_RAYAS = 513
 ROMBO_RAYAS = 514
 PENTAGONO_RAYAS = 515
 HEXAGONO_RAYAS = 516
+#FIGURAS A RAYAS
 
-#FIGURAS CON FIGURA INTERNA
 CUADRO_SUBC = 521
 TRIANGULO_SUBT = 522
 CIRCULO_SUBCIR = 523
 ROMBO_SUBR = 524
 PENTAGONO_SUBP = 525
 HEXAGONO_SUBH = 526
+#FIGURAS CON FIGURA INTERNA
 
-#CONSTANTES DE IDENTIFICACION DE EVENTOS DE DESTRUCCION DE FIGURAS
 LINEA_5H = 1001
 LINEA_5V = 1002
 L_ARRIBA_IZQ = 1003
@@ -48,8 +66,8 @@ LINEA_ABAJO_3 = 1017
 LINEA_DER_3 = 1018
 LINEA_3V = 1019
 LINEA_3H = 1020
+#CONSTANTES DE IDENTIFICACION DE EVENTOS DE DESTRUCCION DE FIGURAS
 
-#CONSTANTES DE IDENTIFICACION DE SUGERENCIAS DE MOVIMIENTOS
 SUG_ARRIBA_1 = 2001
 SUG_ARRIBA_2 = 2002
 SUG_ARRIBA_3 = 2003
@@ -66,7 +84,7 @@ SUG_CENT_V1 = 2013
 SUG_CENT_V2 = 2014
 SUG_CENT_H1 = 2015
 SUG_CENT_H2 = 2016
-
+#CONSTANTES DE IDENTIFICACION DE SUGERENCIAS DE MOVIMIENTOS
 
 
 class Consultor(object):
@@ -86,16 +104,43 @@ class Consultor(object):
     def _validarConsulta(self, consulta):
         for valor in consulta:
             self.resultado.append(valor["X"])
-        if len(self.resultado)>0:
+        if len(self.resultado)>PASIVO:
             return min(self.resultado)
         else:
-            return 0
+            return PASIVO
+
+class Generador:
+    """
+    clase que implemente el cargado de imagenes y aleatorizacion de las figuras
+    """
+    
+    def cargarImagen(cls, ubicacion):
+        return Image.open(ubicacion)
+    
+    cargarImagen = classmethod(cargarImagen)
+    
+    def siguienteFigura(cls):
+        return randint(CUADRO_NEGRO, HEXAGONO_NEGRO)
+    
+    siguienteFigura = classmethod(siguienteFigura)
+    
+    def arbolConsultar(cls, *args):
+        return "arbol(%s, arbol(%s, arbol(%s)), arbol(%s, arbol(%s)), \
+        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % (args)
+    
+    arbolConsultar = classmethod(arbolConsultar)
         
 
 #Seccion de pruebas
-def _test():
+def _test1():
     consulta = "arbol(1, arbol(1, arbol(1)), arbol(1, arbol(2)), arbol(3, arbol(4)), arbol(1, arbol(2)))"
     obj = Consultor(consulta)
     print obj.buscarPosibilidad()
 
-_test()
+def _test2():
+    consulta = Generador.siguienteFigura()
+    #obj = Generador.cargarImagen(consulta)
+    print consulta
+
+_test1()
+_test2()

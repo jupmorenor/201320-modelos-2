@@ -1,2 +1,4 @@
-from consultas import *
+from constantes import *
 del(Prolog)
+del(Image)
+del(randint)
