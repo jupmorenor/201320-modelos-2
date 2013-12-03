@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 from django.contrib import admin
 admin.autodiscover()
@@ -8,5 +8,6 @@ urlpatterns = patterns('colombianCrush.views',
     # url(r'^$', 'prueba.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^colombianCrushGame/$', 'test')#TODO
+    url(r'^$', 'inicio'),
+    url(r'^game/$', 'juego'),
 )

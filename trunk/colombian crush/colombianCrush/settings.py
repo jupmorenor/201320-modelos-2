@@ -24,8 +24,11 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+DJANGO_STATIC = True
 
+ALLOWED_HOSTS = []#"//colombianCrush.com",]
+
+#DJANGO_STATIC_MEDIA_URL = ALLOWED_HOSTS[0]
 
 # Application definition
 
@@ -36,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_static',
 )
 
 MIDDLEWARE_CLASSES = (
