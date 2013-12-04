@@ -1,4 +1,5 @@
 from constantes import *
 del(Prolog)
-del(Image)
+del(os)
 del(randint)
+del(settings)

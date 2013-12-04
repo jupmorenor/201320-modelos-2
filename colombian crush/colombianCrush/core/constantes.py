@@ -1,5 +1,4 @@
 import os
-import Image
 from pyswip import Prolog
 from random import randint
 from django.conf import settings
@@ -91,20 +90,24 @@ SUG_CENT_H2 = 2016
 
 
 class Consultor(object):
+    """Clase que implementa el mecanismo de consultas a la base de conocimientos usando Prolog"""
 
     def __init__(self, consulta):
         self.consultor = Prolog()
-        self.consultor.consult(os.path.join(settings.MEDIA_ROOT, "colombianCrush.pl"))
+        self.consultor.consult(os.path.join(settings.MEDIA_ROOT, 'colombianCrush.pl').replace('\\','/'))
         self.consulta = consulta
         self.resultado = []
     
     def buscarSugerencia(self):
+        """Genera la respuesta a la consulta de una sugerencia de movimiento para el jugador"""
         return self._validarConsulta(self.consultor.query("buscarSugerencia(X, " + self.consulta + ")"))
     
     def buscarPosibilidad(self):
+        """Genera la respuesta a la consulta de una posibilidad de destruccion de figuras"""
         return self._validarConsulta(self.consultor.query("buscarPosibilidad(X, " + self.consulta + ")"))
     
     def _validarConsulta(self, consulta):
+        """Metodo interno que extrae el menor valor obtenido de Prolog al consultar la base de conocimiento"""
         for valor in consulta:
             self.resultado.append(valor["X"])
         if len(self.resultado)>PASIVO:
@@ -118,8 +121,9 @@ class Generador:
     """
     
     def cargarImagen(cls, ubicacion):
+        """Genera la url de la imagen en el repositorio a partir del id dado"""
         try:
-            imagen = Image.open(os.path.join(settings.STATIC_ROOT, str(ubicacion)+'.png'))
+            imagen = (settings.STATIC_URL + str(ubicacion)+'.png')
         except IOError:
             imagen = ubicacion
         return imagen
@@ -127,11 +131,13 @@ class Generador:
     cargarImagen = classmethod(cargarImagen)
     
     def siguienteFigura(cls):
+        """Genera un numero aleatorio que corresponde con el id de la figura a crear"""
         return randint(CUADRO_NEGRO, HEXAGONO_NEGRO)
     
     siguienteFigura = classmethod(siguienteFigura)
     
     def arbolConsultar(cls, *args):
+        """Retorna la cadena que representa la consulta que se le va a realizar a Prolog"""
         return "arbol(%s, arbol(%s, arbol(%s)), arbol(%s, arbol(%s)), \
         arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % (args) # 9 argumentos
     
@@ -149,5 +155,5 @@ def _test2():
     #obj = Generador.cargarImagen(consulta)
     print consulta
 
-#_test1()
-#_test2()
+_test1()
+_test2()
