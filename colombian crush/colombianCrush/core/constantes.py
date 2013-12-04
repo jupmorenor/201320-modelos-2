@@ -1,6 +1,8 @@
+import os
 import Image
 from pyswip import Prolog
 from random import randint
+from django.conf import settings
 
 
 #CONSTANTES DE IDENTIFICACION DE LOS ESTADOS DEL JUEGO
@@ -20,7 +22,6 @@ INACTIVO = 3
 
 #CONSTANTES DE IDENTIFICACION DE LAS FIGURAS
 ESTRELLA = 500
-VACIO = 600
 
 CUADRO_NEGRO = 501
 TRIANGULO_NEGRO = 502
@@ -45,6 +46,8 @@ ROMBO_SUBR = 524
 PENTAGONO_SUBP = 525
 HEXAGONO_SUBH = 526
 #FIGURAS CON FIGURA INTERNA
+
+VACIO = 600
 
 LINEA_5H = 1001
 LINEA_5V = 1002
@@ -91,7 +94,7 @@ class Consultor(object):
 
     def __init__(self, consulta):
         self.consultor = Prolog()
-        self.consultor.consult("colombianCrush.pl")
+        self.consultor.consult(os.path.join(settings.MEDIA_ROOT, "colombianCrush.pl"))
         self.consulta = consulta
         self.resultado = []
     
@@ -115,7 +118,11 @@ class Generador:
     """
     
     def cargarImagen(cls, ubicacion):
-        return Image.open(ubicacion)
+        try:
+            imagen = Image.open(os.path.join(settings.STATIC_ROOT, str(ubicacion)+'.png'))
+        except IOError:
+            imagen = ubicacion
+        return imagen
     
     cargarImagen = classmethod(cargarImagen)
     
@@ -126,7 +133,7 @@ class Generador:
     
     def arbolConsultar(cls, *args):
         return "arbol(%s, arbol(%s, arbol(%s)), arbol(%s, arbol(%s)), \
-        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % (args)
+        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % (args) # 9 argumentos
     
     arbolConsultar = classmethod(arbolConsultar)
         
