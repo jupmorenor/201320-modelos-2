@@ -1,19 +1,25 @@
+{% load staticfiles %}
 <html>
 	<head>
 		<title>Colombian Crush</title>
 		<script>
 			function porProgramar() {
-				
+				var tabla = Document.getElementById("tablero")
 				
 			}
 		</script>
 	</head>
 	
-	<body>
-		<!-- 
-			aqui va la tabla que contiene las imagenes 
-			con las que se interactua en el juego.
-		 -->
+	<body align="center">
+		<table border="5" id="tablero" align="center">
+			{% for fila in tabla %}
+				<tr>
+				{% for columna in fila %}
+					<td>{{columna}}</td>
+				{% endfor %}
+				</tr>
+			{% endfor %}
+		</table>
 	</body>
 
 </html>

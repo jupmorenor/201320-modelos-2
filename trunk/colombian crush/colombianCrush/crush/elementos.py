@@ -21,10 +21,9 @@ class Figura(object):
 class Contenedor(object):
     
     def __init__(self, filas=10, columnas=10):
-        self.contenido = [[VACIO for i in xrange(filas)] for y in xrange(columnas)]
+        self.contenido = [[Figura(VACIO) for i in xrange(filas)] for y in xrange(columnas)]
     
     def darContenido(self):
-        print type(self.contenido)
         return self.contenido
      
     def agregarFigura(self):

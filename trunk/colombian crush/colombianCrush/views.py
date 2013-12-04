@@ -18,7 +18,7 @@ def juego(request):
     """
     metodo de prueba, puede ser eliminado al implementar la parte orientada a objetos
     """
-    contenido = Contenedor(filas=5, columnas=5)
+    contenido = Contenedor()
     tabla = []
     tabla.extend(contenido.darContenido())
     t = get_template("colombianCrushGame.html")
