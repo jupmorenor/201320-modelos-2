@@ -6,24 +6,28 @@ Created on 2/12/2013
 from colombianCrush.core import VACIO, Generador
 
 class Figura(object):
+    """Clase que representa a una figura que se puede ver en pantalla"""
 
     def __init__(self, imagen):
         self.id = imagen
         self.imagen = Generador.cargarImagen(imagen)
         
     def dibujar(self):
-        pass
+        """Retorna la url de la imagen de la figura para que sea dibujada"""
+        return self.imagen
     
     def __unicode__(self):
         return self.id
 
 
 class Contenedor(object):
+    """Clase que contiene la matriz de figuras que se ve en pantalla"""
     
     def __init__(self, filas=10, columnas=10):
         self.contenido = [[Figura(VACIO) for i in xrange(filas)] for y in xrange(columnas)]
     
     def darContenido(self):
+        """Retorna la matriz de figuras para que se muestre en pantalla"""
         return self.contenido
      
     def agregarFigura(self):

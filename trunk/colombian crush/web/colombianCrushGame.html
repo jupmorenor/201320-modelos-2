@@ -15,7 +15,7 @@
 			{% for fila in tabla %}
 				<tr>
 				{% for columna in fila %}
-					<td>{{columna}}</td>
+					<td><img src="{{columna.dibujar}}"/></td>
 				{% endfor %}
 				</tr>
 			{% endfor %}
