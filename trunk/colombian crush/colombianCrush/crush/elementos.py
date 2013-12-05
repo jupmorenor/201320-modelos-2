@@ -3,7 +3,7 @@ Created on 2/12/2013
 
 @author: Juanpa y Yami
 '''
-from colombianCrush.core import VACIO, Generador
+from colombianCrush.core import *
 
 class Figura(object):
     """Clase que representa a una figura que se puede ver en pantalla"""
@@ -44,3 +44,23 @@ class Contenedor(object):
                         self.contenido[fila][fig]=VACIO
                 except IndexError:
                     pass
+
+class Controlador(object):
+    """Clase que controla el flujo del juego"""
+
+    def __init__(self):
+        self.estado = ACTIVO
+    
+    def controlJuego(self):
+        if self.estado is ACTIVO:
+            pass
+        
+        elif self.estado is PASIVO:
+            pass
+        
+        elif self.estado is DESTRUCCION:
+            pass
+        
+        elif self.estado is INACTIVO:
+            pass
+        

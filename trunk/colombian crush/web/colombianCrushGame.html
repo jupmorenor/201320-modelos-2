@@ -4,6 +4,12 @@
 		<script>
 			var elm1, elm2, tmpElm;
 			var seleccionado=false;
+			var contador=0;
+			
+			function asignarID() {
+				contador=contador+1
+				return contador;
+			}
 			
 			function cambiarElemento(id) {
 				if(seleccionado==false) {
@@ -36,8 +42,8 @@
 				<tr>
 				{% for columna in fila %}
 					<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
-						<img src="{{columna.dibujar}}" id="{{columna}}" 
-						onmousedown="cambiarElemento('{{columna}}')"/>
+						<img src="{{columna.dibujar}}" id="asignarID()" 
+						onmousedown="cambiarElemento(this.id)"/>
 					</td>
 				{% endfor %}
 				</tr>
