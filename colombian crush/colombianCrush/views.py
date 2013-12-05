@@ -19,6 +19,7 @@ def inicio(request):
 def juego(request):
     """Metodo que envia el contenido del juego a la ventana"""
     contenido = Contenedor()
+    contenido.agregarFigura()
     tabla = []
     tabla.extend(contenido.darContenido())
     t = get_template("colombianCrushGame.html")

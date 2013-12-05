@@ -24,7 +24,7 @@ class Contenedor(object):
     """Clase que contiene la matriz de figuras que se ve en pantalla"""
     
     def __init__(self, filas=10, columnas=10):
-        self.contenido = [[Figura(VACIO) for i in xrange(filas)] for y in xrange(columnas)]
+        self.contenido = [[Figura(Generador.siguienteFigura()) for i in xrange(filas)] for y in xrange(columnas)]
     
     def darContenido(self):
         """Retorna la matriz de figuras para que se muestre en pantalla"""
