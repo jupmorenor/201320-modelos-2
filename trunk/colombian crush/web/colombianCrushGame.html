@@ -1,11 +1,23 @@
-{% load staticfiles %}
 <html>
 	<head>
 		<title>Colombian Crush</title>
 		<script>
-			function porProgramar() {
-				var tabla = Document.getElementById("tablero")
+			var elm1, elm2, tmpElm;
+			var seleccionado=false;
+			
+			function cambiarElemento(id) {
+				if(seleccionado==false) {
+					elm1 = document.getElementById(id)
+					seleccionado=true;
+				} 
 				
+				if(seleccionado==true) {
+					elm2 = document.getElementById(id)
+					tmpElm = elm1.getAttribute("src")
+					elm1.src = elm2.getAttribute("src")
+					elm2.src = tmpElm;
+					seleccionado=false
+				}	
 			}
 		</script>
 	</head>
@@ -15,7 +27,10 @@
 			{% for fila in tabla %}
 				<tr>
 				{% for columna in fila %}
-					<td><img src="{{columna.dibujar}}"/></td>
+					<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
+						<img src="{{columna.dibujar}}" id="{{columna}}" 
+						onClick="cambiarElemento('{{columna}}')"/>
+					</td>
 				{% endfor %}
 				</tr>
 			{% endfor %}
