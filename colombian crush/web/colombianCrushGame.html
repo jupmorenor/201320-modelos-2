@@ -29,7 +29,7 @@
 				{% for columna in fila %}
 					<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
 						<img src="{{columna.dibujar}}" id="{{columna}}" 
-						onClick="cambiarElemento('{{columna}}')"/>
+						onmousedown="cambiarElemento('{{columna}}')"/>
 					</td>
 				{% endfor %}
 				</tr>
