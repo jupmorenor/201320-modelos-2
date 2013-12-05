@@ -14,16 +14,29 @@
 			function cambiarElemento(id) {
 				if(seleccionado==false) {
 					elm1 = document.getElementById(id)
+					throw(id)
 					seleccionado=true;
 				} else {
+					
+					throw(id)
 					elm2 = document.getElementById(id)
 					tmpElm = elm1.getAttribute("src")
 					elm1.src = elm2.getAttribute("src")
 					elm2.src = tmpElm
-					seleccionado=false;
+					seleccionado=false
 				}	
 			}
-			
+
+		    function actualizar()
+		    {
+		        if(document.matriz.onsubmit &&
+		        !document.matriz.onsubmit())
+		        {
+		            return;
+		        }
+		     document.matriz.submit();
+		    }
+		    			
 			function my_onkeydown_handler() {
 			    switch (event.keyCode) {
 			        case 116 : // 'F5'
@@ -36,19 +49,26 @@
 		</script>
 	</head>
 	
-	<body align="center" onkeydown="my_onkeydown_handler()">
-		<table border="5" id="tablero" align="center">
-			{% for fila in tabla %}
-				<tr>
-				{% for columna in fila %}
-					<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
-						<img src="{{columna.dibujar}}" id="asignarID()" 
-						onmousedown="cambiarElemento(this.id)"/>
-					</td>
-				{% endfor %}
-				</tr>
-			{% endfor %}
-		</table>
+	<body onkeydown="my_onkeydown_handler()">
+		<div id="puntaje" align="left">
+			<p>Puntaje: {{puntaje}}</p>
+		</div>
+		<div id="contTablero" align="center">
+			<form id="matriz" action="" method="POST">{% csrf_token %}
+				<table border="5" id="tablero" name="tablero" align="center">
+					{% for fila in tabla %}
+						<tr>
+						{% for columna in fila %}
+							<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
+								<input type="image" src="{{columna.dibujar}}" onload="this.id=asignarID()" 
+								onmousedown="cambiarElemento(this.id)"/>
+							</td>
+						{% endfor %}
+						</tr>
+					{% endfor %}
+				</table>
+			</form>
+		</div>
 	</body>
 
 </html>
