@@ -9,20 +9,28 @@
 				if(seleccionado==false) {
 					elm1 = document.getElementById(id)
 					seleccionado=true;
-				} 
-				
-				if(seleccionado==true) {
+				} else {
 					elm2 = document.getElementById(id)
 					tmpElm = elm1.getAttribute("src")
 					elm1.src = elm2.getAttribute("src")
-					elm2.src = tmpElm;
-					seleccionado=false
+					elm2.src = tmpElm
+					seleccionado=false;
 				}	
+			}
+			
+			function my_onkeydown_handler() {
+			    switch (event.keyCode) {
+			        case 116 : // 'F5'
+			            event.returnValue = false;
+			            event.keyCode = 0;
+			            window.status = "We have disabled F5";
+			            break;
+			    }
 			}
 		</script>
 	</head>
 	
-	<body align="center">
+	<body align="center" onkeydown="my_onkeydown_handler()">
 		<table border="5" id="tablero" align="center">
 			{% for fila in tabla %}
 				<tr>
