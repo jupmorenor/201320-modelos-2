@@ -23,12 +23,14 @@ def inicio(request):
 def juego(request):
     """Metodo que envia el contenido del juego a la ventana"""
     if request.method == 'POST':
-        contenido.tablero.establecerContenido(request.POST.getlist('tablero'))
+        contenido.tablero.establecerContenido(request.POST.getlist('tablero[]'))
         contenido.estado = 2
         contenido.controlJuego()
     t = get_template("colombianCrushGame.html")
     salida = t.render(RequestContext(request, {'tabla':contenido.tablero.darContenido(), 'puntaje':contenido.puntaje}))
     return HttpResponse(salida)
+    if contenido.puntaje>=1000:
+        return HttpResponseRedirect('/fin')
 
 def fin(request):
     t = get_template("despedida.html")
