@@ -10,11 +10,11 @@ PASIVO = 0
 #Estado en el que el jugador puede hacer su movimiento
 
 ACTIVO = 1
-#Estado en el que se consulta la base de conocimiento para obtener 
-#las posibilidades de eliminacion de elementos
+#Estado en el que se reacomodan las fichas 
 
 DESTRUCCION = 2
-#Estado en el que se eliminan las fichas posibles
+#Estado en el que se consulta la base de conocimiento para obtener 
+#las posibilidades de eliminacion de elementos y se eliminan las fichas posibles
 
 INACTIVO = 3
 #Estado en el que se genera una sugerencia para el jugador
@@ -136,10 +136,10 @@ class Generador:
     
     siguienteFigura = classmethod(siguienteFigura)
     
-    def arbolConsultar(cls, *args):
+    def arbolConsultar(cls, args):
         """Retorna la cadena que representa la consulta que se le va a realizar a Prolog"""
         return "arbol(%s, arbol(%s, arbol(%s)), arbol(%s, arbol(%s)), \
-        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % (args) # 9 argumentos
+        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % args # 9 argumentos
     
     arbolConsultar = classmethod(arbolConsultar)
         
