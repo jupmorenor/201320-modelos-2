@@ -10,4 +10,5 @@ urlpatterns = patterns('colombianCrush.views',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'inicio'),
     url(r'^game/$', 'juego'),
+    url(r'^fin/$', 'fin'),
 )

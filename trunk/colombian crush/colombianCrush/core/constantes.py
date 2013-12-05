@@ -139,7 +139,7 @@ class Generador:
     def arbolConsultar(cls, args):
         """Retorna la cadena que representa la consulta que se le va a realizar a Prolog"""
         return "arbol(%s, arbol(%s, arbol(%s)), arbol(%s, arbol(%s)), \
-        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % args # 9 argumentos
+        arbol(%s, arbol(%s)), arbol(%s, arbol(%s)))" % tuple(args) # 9 argumentos
     
     arbolConsultar = classmethod(arbolConsultar)
         

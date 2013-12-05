@@ -30,6 +30,10 @@ class Contenedor(object):
     def darContenido(self):
         """Retorna la matriz de figuras para que se muestre en pantalla"""
         return self.contenido
+    
+    def establecerContenido(self, cont):
+        """Guarda la matriz obtenida del request de la pagina"""
+        self.contenido = cont
      
     def agregarFigura(self):
         for figura in self.contenido[0]:
@@ -66,6 +70,9 @@ class Controlador(object):
             while self.tablero.espacios>0:
                 self.tablero.bajarFigura()
                 self.tablero.agregarFigura()
+                if self.tablero.espacios<=0:
+                    self.estado = PASIVO
+            
         
         elif self.estado is PASIVO:
             pass # turno del jugador
