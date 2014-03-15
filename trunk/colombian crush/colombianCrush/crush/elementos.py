@@ -123,7 +123,7 @@ class Controlador(object):
                         self.estado = PASIVO
                     
                     elif self.respuesta is LINEA_5H:
-                        self.tablero.contenido[i][j] = Figura(ESTRELLA)
+                        self.tablero.contenido[i][j] = Figura(BOMBA_COLOR)
                         self.tablero.contenido[i][j-1] = Figura(VACIO)
                         self.tablero.contenido[i][j-2] = Figura(VACIO)
                         self.tablero.contenido[i][j+1] = Figura(VACIO)
@@ -132,7 +132,7 @@ class Controlador(object):
                         self.estado = ACTIVO
                     
                     elif self.respuesta is LINEA_5V:
-                        self.tablero.contenido[i][j] = Figura(ESTRELLA)
+                        self.tablero.contenido[i][j] = Figura(BOMBA_COLOR)
                         self.tablero.contenido[i-1][j] = Figura(VACIO)
                         self.tablero.contenido[i-2][j] = Figura(VACIO)
                         self.tablero.contenido[i+1][j] = Figura(VACIO)
