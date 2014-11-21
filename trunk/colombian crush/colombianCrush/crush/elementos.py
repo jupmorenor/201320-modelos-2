@@ -137,7 +137,7 @@ class Controlador(object):
                         self.tablero.contenido[i-2][j] = Figura(VACIO)
                         self.tablero.contenido[i+1][j] = Figura(VACIO)
                         self.tablero.contenido[i+2][j] = Figura(VACIO)
-                        self.puntaje += 50
+                        self.puntaje += 100
                         self.estado = ACTIVO
                         
                     elif self.respuesta is L_ARRIBA_IZQ:

@@ -155,5 +155,6 @@ def _test2():
     #obj = Generador.cargarImagen(consulta)
     print consulta
 
-_test1()
-_test2()
+if __name__ == '__main__':
+    _test1()
+    _test2()

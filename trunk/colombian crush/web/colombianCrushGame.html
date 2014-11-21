@@ -29,12 +29,17 @@
 
 		    function actualizar()
 		    {
-		        if(document.matriz.onsubmit &&
-		        !document.matriz.onsubmit())
-		        {
-		            return;
-		        }
-		     document.matriz.submit();
+				var tabla = document.getElementById("tablero")
+				var matriz = []
+				for (var i=0; i<tabla.rows.length; i++) {
+					var filamatriz = []
+					var filatabla = tabla.rows[i]
+					for (var j=0; j<filatabla.cells.length; j++) {
+						filamatriz.push(filatabla.row.cells[j].name)
+					}
+					matriz.push(filatabla)
+				}
+				return matriz
 		    }
 		    			
 			function my_onkeydown_handler() {
@@ -46,27 +51,42 @@
 			            break;
 			    }
 			}
+			
+			function zoom() {
+				document.body.style.zoom="100%"
+			}
 		</script>
 		<style type="text/css">
 			body {
+				zoom: 100%;
 				background-image:url('https://201320-modelos-2.googlecode.com/svn/trunk/colombian%20crush/static/bg_00.jpg');
+				background-repeat:no-repeat;
+			}
+			td {
+				background-color='#696969'
+				opacity=0;
+			}
+			.opacity {
+				background-color=dimgray
+				opacity=0
+				filter:alpha(opacity=0)
 			}
 		</style>
 	</head>
 	
-	<body onkeydown="my_onkeydown_handler()">
+	<body onkeydown="my_onkeydown_handler()" >
 		<div id="puntaje" align="left">
 			<p>Puntaje: {{puntaje}}</p>
 		</div>
 		<div id="contTablero" align="center">
-			<form id="matriz" action="" method="POST">{% csrf_token %}
+			<form id="matriz" action="" method="POST" onSubmit="return actualizar()">{% csrf_token %}
 				<table border="5" id="tablero" name="tablero" align="center">
 					{% for fila in tabla %}
 						<tr>
 						{% for columna in fila %}
-							<td onMouseOver="this.bgColor='#AAAAAA'" onMouseout="this.bgColor='#FFFFFF'">
-								<input type="image" src="{{columna.dibujar}}" onload="this.id=asignarID()" 
-								onmousedown="cambiarElemento(this.id)"/>
+							<td onMouseOver="this.opacity=0.5" onMouseout="this.opacity=0">
+								<input type="image" name="{{columna}}" src="{{columna.dibujar}}" 
+								onload="this.id=asignarID()" onclick="cambiarElemento(this.id)"/>
 							</td>
 						{% endfor %}
 						</tr>
